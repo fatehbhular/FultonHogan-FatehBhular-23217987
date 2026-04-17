@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FultonHogan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c6ae7db55117bca7ad125892c63106883dfff1d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11c8497f1979db756ca2a01e4a20f4b342b61c08")]
 [assembly: System.Reflection.AssemblyProductAttribute("FultonHogan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FultonHogan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
