@@ -23,7 +23,7 @@ namespace FultonHogan.Reports
         public void GenerateTemplate()
         {
             // Generates a CUI template for the user to see.
-            Console.WriteLine($"ReportId: {ReportId}, ProjectId: {ProjectId}, AuthorId: {AuthorId}");
+            Console.WriteLine($"Employee <{AuthorId}> has created the following report -- ReportId: {ReportId}, ProjectId: {ProjectId}, AuthorId: {AuthorId}");
             Console.WriteLine($"Report Content: {Description}");
         }
 
@@ -37,6 +37,11 @@ namespace FultonHogan.Reports
         {
             // Should convert the information in this report into a PDF document.
             Console.WriteLine($"This report <{ReportId}> is ready to be downloaded as a PDF.");
+        }
+
+        public void SubmitReport()
+        {
+            Console.WriteLine("Report has been submitted.");
         }
     }
 }
