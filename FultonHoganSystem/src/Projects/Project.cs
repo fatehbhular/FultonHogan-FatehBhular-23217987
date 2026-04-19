@@ -31,7 +31,7 @@ namespace FultonHogan.Projects
             return 0.0;
         }
 
-        public string updateStatus(string status)
+        public string UpdateStatus(string status)
         {
             // Changes the current status of this project to the new status given via argument
             CurrentStatus = status;

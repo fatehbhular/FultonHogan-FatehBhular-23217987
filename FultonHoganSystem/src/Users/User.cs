@@ -31,7 +31,7 @@ namespace FultonHogan.Users
         // Logs the user into the system with email + password checking
         public virtual bool Login(string email)
         {
-            if (!(email == $"{EmployeeId}@fultonhogan.com"))
+            if (!(email == $"{Name}{EmployeeId}@fultonhogan.com"))
             {
                 Console.WriteLine("Login failed: Invalid email address.");
                 return false;

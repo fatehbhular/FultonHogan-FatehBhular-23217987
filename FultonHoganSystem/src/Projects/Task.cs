@@ -22,7 +22,7 @@ namespace FultonHogan.Projects
         {
             // Assigns a TaskId to this task so that it can be stored there.
             TaskListId = taskListId;
-            Console.WriteLine($"Task <{TaskId}> has been assigned to <{TaskListId}>");
+            Console.WriteLine($"Task <{TaskId}> has been assigned to TaskList: {TaskListId}");
         }
 
         public bool IsCompleted()

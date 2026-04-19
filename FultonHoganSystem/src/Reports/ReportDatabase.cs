@@ -1,0 +1,1 @@
+// Will be for second part of assesment, to store all reports into different categories.
