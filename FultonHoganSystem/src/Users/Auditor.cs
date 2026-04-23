@@ -16,11 +16,13 @@ namespace FultonHogan.Users
 
         // IAuditorFinanceTools methods
 
+        // Used to verify accuracy of financial reports
         public void VerifyFinancialAccuracy()
         {
             Console.WriteLine($"{Name} has verified the financial accuracy of all financial documents");
         }
 
+        // Used to verify
         public void IssueFinancialProblem()
         {
             Console.WriteLine($"{Name} has issued a financial problem.");

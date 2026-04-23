@@ -13,11 +13,13 @@ namespace FultonHogan.Reports
             IsResolved = false;
         }
 
+        // Sends alert to management department about a new report
         public void SendAlert(string message)
         {
             Console.WriteLine("Alert has been sent.");
         }
 
+        // Allows user to add evidence 
         public void AttachEvidence(string evidence)
         {
             Console.WriteLine("Evidence has been attached to report.");

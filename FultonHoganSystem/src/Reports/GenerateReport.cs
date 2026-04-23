@@ -21,6 +21,7 @@ namespace FultonHogan.Reports
             Timestamp = DateTime.Now;
         }
 
+        // Creates different reports based on the type of report inputted.
         public Report CreateReport()
         {
             switch (ReportType.ToLower())
@@ -34,7 +35,7 @@ namespace FultonHogan.Reports
                     return new ProblemReport(ReportId, ProjectId, AuthorId, Description, Department, "blueprints", "urgent");
                 case "progress":
                     List<Projects.Task> TasksCompleted = new List<Projects.Task>();
-                    return new ProgressReport(ReportId, ProjectId, AuthorId, Description, Department, TasksCompleted, 68.2, "Need ot buy more concrete");
+                    return new ProgressReport(ReportId, ProjectId, AuthorId, Description, Department, TasksCompleted, 68.2, "Need to buy more concrete");
                 default:
                     return new Report(ReportId, ProjectId, AuthorId, Description, Department);
             }

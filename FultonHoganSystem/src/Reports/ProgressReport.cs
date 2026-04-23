@@ -15,6 +15,7 @@ namespace FultonHogan.Reports
             NewFindings = newFindings;
         }
 
+        // This method is responsible for updating a task, when it is completed.
         public void UpdateTasksCompleted()
         {
             Console.Write($"The tasks completed for project <{ProjectId}> has been updated.");

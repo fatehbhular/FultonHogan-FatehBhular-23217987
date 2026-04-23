@@ -13,6 +13,7 @@ namespace FultonHogan.Reports
             IsApproved = isApproved;
         }
 
+        // Calculates the Estimated vs Actual costs - used during Financial Report
         public decimal CalculateEVA(decimal estimatedCost, decimal actualCost)
         {
             decimal variance = actualCost - estimatedCost;

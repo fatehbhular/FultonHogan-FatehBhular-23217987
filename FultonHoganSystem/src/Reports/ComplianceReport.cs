@@ -11,6 +11,7 @@ namespace FultonHogan.Reports
             IsApproved = isApproved;
         }
 
+        // Auditor calls to verify financial report accuracy
         public bool VerifyReportAccuracy(bool isVerified)
         {
             if (isVerified == true)
@@ -25,6 +26,7 @@ namespace FultonHogan.Reports
             }
         }
 
+        // Auditor calls to flag any problems if something is wrong in the financial report
         public void FlagInconsistency(string content)
         {
             Console.WriteLine($"{content} has been flagged as an inconsistency.");

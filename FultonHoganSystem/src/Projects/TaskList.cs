@@ -21,6 +21,7 @@ namespace FultonHogan.Projects
             AllTasks = new List<Task>();
         }
 
+        // Sends task list to Site Foreman
         public void SendTaskList(List<Task> allTasks)
         {
             Console.WriteLine("The list has been sent!");

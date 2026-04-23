@@ -22,7 +22,7 @@ namespace FultonHogan.Reports
 
         public void GenerateTemplate()
         {
-            // Generates a CUI template for the user to see.
+            // Shoud generates a template for the user to start their report
             Console.WriteLine($"Employee <{AuthorId}> has created the following report -- ReportId: {ReportId}, ProjectId: {ProjectId}, AuthorId: {AuthorId}");
             Console.WriteLine($"Report Content: {Description}");
         }
@@ -41,6 +41,7 @@ namespace FultonHogan.Reports
 
         public void SubmitReport()
         {
+            // Should submit the report to the reportDatabase
             Console.WriteLine("Report has been submitted.");
         }
     }
