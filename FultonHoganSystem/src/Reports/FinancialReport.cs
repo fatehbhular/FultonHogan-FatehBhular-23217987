@@ -1,33 +1,40 @@
-namespace FultonHogan.Reports
+using Core.Models;
+
+namespace Reports
 {
+    // Concrete class that represents a financial report for a project.
+    // Extends the Report abstract class and provides financial-related functionality.
     public class FinancialReport : Report
     {
-        public decimal EstimatedCost { get; protected set; }
-        public decimal ActualCost { get; protected set; }
-        public bool IsApproved { get; protected set; }
-
-        public FinancialReport(string reportId, string projectId, string authorId, string description, string department, decimal estimatedCost, decimal actualCost, bool isApproved) : base(reportId, projectId, authorId, description, department)
+        // Constructor that initialises a new financial report.
+        // Calls the base Report constructor using base().
+        public FinancialReport(string reportID, string projectID, string authorID, string description, string department) : base(reportID, projectID, authorID, description, department)
         {
-            EstimatedCost = estimatedCost;
-            ActualCost = actualCost;
-            IsApproved = isApproved;
+
         }
 
-        // Calculates the Estimated vs Actual costs - used during Financial Report
-        public decimal CalculateEVA(decimal estimatedCost, decimal actualCost)
+        // Calculates the Estimated vs Actual costs for this project
+        public void CalulcateEVA()
         {
-            decimal variance = actualCost - estimatedCost;
+            // TODO: Write EVA calculation logic
+        }
 
-            if (variance > 0)
-            {
-                Console.WriteLine($"Project has ${variance} more for more spendings.");
-            }
-            else
-            {
-                Console.WriteLine($"Project has already spent ${variance} over the limit");
-            }
+        // Generates a financial report template
+        public override void GenerateTemplate()
+        {
+            // TODO: Financial report template generation
+        }
 
-            return variance;
+        // Saves this report to the database
+        public override void Save()
+        {
+            // TODO: Saving to database logic
+        }
+
+        // Exports this report in PDF format
+        public override void ExportToPDF()
+        {
+            // TODO: Exporting as PDF logic
         }
     }
 }
