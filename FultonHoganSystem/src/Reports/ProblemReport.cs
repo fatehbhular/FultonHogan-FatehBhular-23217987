@@ -1,26 +1,35 @@
-namespace FultonHogan.Reports
+using Core.Models;
+
+namespace Reports
 {
     public class ProblemReport : Report
     {
-        public string ProblemCategory { get; protected set; }
-        public string PriorityLevel { get; protected set; }
-        public bool IsResolved { get; protected set; }
-
-        public ProblemReport(string reportId, string projectId, string authorId, string description, string department, string problemCategory, string priorityLevel) : base(reportId, projectId, authorId, description, department)
+        public ProblemReport(string reportID, string projectID, string authorID, string description, string department) : base(reportID, projectID, authorID, description, department)
         {
-            ProblemCategory = problemCategory;
-            PriorityLevel = priorityLevel;
-            IsResolved = false;
+
         }
 
-        public void SendAlert(string message)
+        public void SendAlert()
         {
-            Console.WriteLine("Alert has been sent.");
+            // TODO: Write the send alert logic
         }
 
-        public void AttachEvidence(string evidence)
+        // Generates a problem report template
+        public override void GenerateTemplate()
         {
-            Console.WriteLine("Evidence has been attached to report.");
+            // TODO: Problem report template generation
+        }
+
+        // Saves this report to the database
+        public override void Save()
+        {
+            // TODO: Saving to database logic
+        }
+
+        // Exports this report in PDF format
+        public override void ExportToPDF()
+        {
+            // TODO: Exporting as PDF logic
         }
     }
 }

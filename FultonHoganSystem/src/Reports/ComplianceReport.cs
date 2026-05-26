@@ -1,33 +1,47 @@
-namespace FultonHogan.Reports
+using Core.Models;
+
+namespace Reports
 {
+    // Concrete class that represents a compliance report for a project.
+    // Extends the Report abstract class and provides compliance-related functionality.
     public class ComplianceReport : Report
     {
-        public List<String> AuditHistory { get; private set; }
-        public bool IsApproved { get; protected set; }
-
-        public ComplianceReport(string reportId, string projectId, string authorId, string description, string department, List<String> auditHistory, bool isApproved) : base(reportId, projectId, authorId, description, department)
+        // Constructor that initialises a new compliance report.
+        // Calls the base Report constructor using base().
+        public ComplianceReport(string reportID, string projectID, string authorID, string description, string department)
+            : base(reportID, projectID, authorID, description, department)
         {
-            AuditHistory = auditHistory;
-            IsApproved = isApproved;
+
         }
 
-        public bool VerifyReportAccuracy(bool isVerified)
+        // Verifies the accuracy of selected financial report
+        public void VerifyReportAccuracy()
         {
-            if (isVerified == true)
-            {
-                Console.WriteLine("This report has been verified.");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("This report hasn't passed verification.");
-                return false;
-            }
+            // TODO: Report accuracy logic
         }
 
-        public void FlagInconsistency(string content)
+        // Notes any inconsistences found in the selected financial report
+        public void FlagInconsistency()
         {
-            Console.WriteLine($"{content} has been flagged as an inconsistency.");
+            // TODO: Flagging logic
+        }
+
+        // Generates a compliance report template
+        public override void GenerateTemplate()
+        {
+            // TODO: Compliance report template generation
+        }
+
+        // Saves this report to the database
+        public override void Save()
+        {
+            // TODO: Saving to database logic
+        }
+
+        // Exports this report in PDF format
+        public override void ExportToPDF()
+        {
+            // TODO: Exporting as PDF logic
         }
     }
 }
