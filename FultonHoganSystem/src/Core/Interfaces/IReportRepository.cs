@@ -7,6 +7,7 @@ namespace Core.Interfaces
     {
         // Saves the report to the database
         void Save(Report report);
+        
         // Retrieves a report from the database using "ReportID" as the key identifier.
         Report GetByID(string reportID);
     }

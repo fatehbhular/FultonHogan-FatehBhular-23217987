@@ -19,6 +19,7 @@ namespace Services
         // Creates and returns a new report - uses type to decide which one to create
         public Report CreateReport(string type)
         {
+            // TODO: Write logic to create report using ReportFactory
             ReportFactory factory = new ReportFactory();
             
             string generatedID = Guid.NewGuid().ToString();
