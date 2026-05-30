@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Core.Models;
 using Factories;
+using Repositories;
 using Microsoft.Data.Sqlite;
 
 namespace Auth
@@ -9,59 +10,56 @@ namespace Auth
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        private DatabaseEmployeeRepository EmployeeRepository;
 
         public SystemLogin(string email, string password)
         {
             Email = email;
             Password = password;
+            EmployeeRepository = new DatabaseEmployeeRepository();
         }
 
         public IEmployee Login()
         {
-            var dbConnection = DatabaseConnection.GetInstance();
-            dbConnection.Connect();
-
-            // Returns the SQLite connection so we can use it in queries.
-            SqliteConnection connection = dbConnection.GetConnect();
-
-            // SQL query that searches the Employees database for these inputs
-            string sql = @"SELECT * FROM Employees WHERE Email = @Email AND Password = @Password";
-
-            using (var command = new SqliteCommand(sql, connection)) 
+            using (var reader = EmployeeRepository.GetUser(Email, Password))
             {
-                command.Parameters.AddWithValue("@Email", Email);
-                command.Parameters.AddWithValue("@Password", Password);
+                if (reader.Read())
+                {
+                    string dept = reader["Department"].ToString() ?? "";
+                    // Remove spaces from role to match factory switch statements
+                    string role = (reader["Role"].ToString() ?? "").Replace(" ", "").ToLower();
 
-                using (var reader = command.ExecuteReader()) {
-                    if (reader.Read()) {
-                        string department = reader["Department"].ToString();
-                        string role = reader["Role"].ToString();
+                    IEmployeeFactory factory = GetFactory(dept);
+                    if (factory != null)
+                    {
+                        // Create the concrete object
+                        IEmployee employee = factory.CreateEmployee(role);
 
-                        IEmployeeFactory factory = GetFactory(department);
-                        if (factory != null) {
-                            return factory.CreateEmployee(role);
+                        // Since IEmployee is an interface, we cast it to Employee 
+                        // to set the properties from the database
+                        if (employee is Employee empObj)
+                        {
+                            empObj.Name = reader["Name"].ToString() ?? "";
+                            empObj.EmployeeID = reader["EmployeeID"].ToString() ?? "";
+                            empObj.Email = reader["Email"].ToString() ?? "";
+                            empObj.Department = dept;
                         }
+
+                        return employee;
                     }
                 }
             }
-
-            // Fallback -> incase the credentials fail
-            return null;
+            return null; // Login failed
         }
 
         public IEmployeeFactory GetFactory(string department)
         {
             switch (department.ToLower())
             {
-                case "finance":
-                    return new FinanceEmployeeFactory();
-                case "management":
-                    return new ManagementEmployeeFactory();
-                case "operations":
-                    return new OperationsEmployeeFactory();
-                default:
-                    // If role doesn't match any of the above -> return null
-                    return null;
+                case "finance": return new FinanceEmployeeFactory();
+                case "management": return new ManagementEmployeeFactory();
+                case "operations": return new OperationsEmployeeFactory();
+                default: return null;
             }
         }
     }

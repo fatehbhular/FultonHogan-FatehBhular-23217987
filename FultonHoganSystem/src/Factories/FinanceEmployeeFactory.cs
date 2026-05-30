@@ -21,8 +21,8 @@ namespace Factories
                 case "auditor":
                     return new Auditor();
                 default:
-                    // If role doesn't match any of the above -> return null
-                    return null;
+                    // If role doesn't match any of the above -> return argument exception
+                    throw new ArgumentException($"Unknown finance role: {role}");
             }
         }
     }

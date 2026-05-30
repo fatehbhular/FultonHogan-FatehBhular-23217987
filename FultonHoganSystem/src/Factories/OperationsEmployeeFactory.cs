@@ -21,8 +21,8 @@ namespace Factories
                 case "generallabourer":
                     return new GeneralLabourer();
                 default:
-                    // If role doesn't match any of the above -> return null
-                    return null;
+                    // If role doesn't match any of the above -> return argument exception
+                    throw new ArgumentException($"Unknown operations role: {role}");
             }
         }
     }

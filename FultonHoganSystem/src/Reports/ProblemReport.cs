@@ -1,4 +1,5 @@
 using Core.Models;
+using Repositories;
 
 namespace Reports
 {
@@ -11,25 +12,26 @@ namespace Reports
 
         public void SendAlert()
         {
-            // TODO: Write the send alert logic
+            Console.WriteLine($"ALERT: Problem reported on Project {ProjectID}. Notifying stakeholders...");
         }
 
         // Generates a problem report template
         public override void GenerateTemplate()
         {
-            // TODO: Problem report template generation
+            Description = "Standard Problem Template: Issue description, severity, and mitigation plan.";
         }
 
         // Saves this report to the database
         public override void Save()
         {
-            // TODO: Saving to database logic
+            DatabaseReportRepository repo = new DatabaseReportRepository();
+            repo.Save(this);
         }
 
         // Exports this report in PDF format
         public override void ExportToPDF()
         {
-            // TODO: Exporting as PDF logic
+            Console.WriteLine($"Exporting Problem Report {ReportID} to PDF...");
         }
     }
 }

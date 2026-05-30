@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GUI.Views.DashboardView">
+    
+    <Grid Background="#ecf0f1">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="20">
+            
+            <TextBlock x:Name="WelcomeLabel" 
+                       Text="Welcome back, User!" 
+                       FontSize="32" 
+                       Foreground="#2c3e50" 
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"/>
+            
+            <TextBlock Text="You have successfully entered the Fulton Hogan Management System." 
+                       Foreground="#7f8c8d"
+                       HorizontalAlignment="Center"/>
+
+            <Button Content="LOGOUT" 
+                    Click="OnLogoutClick"
+                    Background="#e74c3c" 
+                    Foreground="White" 
+                    Padding="20,10"
+                    HorizontalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

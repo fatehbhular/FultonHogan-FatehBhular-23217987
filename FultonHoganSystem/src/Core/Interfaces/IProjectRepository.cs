@@ -1,6 +1,6 @@
 using Core.Models;
 
-namespace Interfaces
+namespace Core.Interfaces
 {
     // This interface defines the behaviour for data persistence
     public interface IProjectRepository

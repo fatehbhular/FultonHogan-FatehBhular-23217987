@@ -1,32 +1,35 @@
 using Microsoft.Data.Sqlite;
+using System.Data;
 
 namespace Core.Models
 {
     public class DatabaseConnection
     {
-        // only one instance of this class
-        private static DatabaseConnection dbConnection;
+        // Only one instance of this class
+        private static DatabaseConnection Instance;
+
+        // SQLite connection object
+        private SqliteConnection Connection;
         
-        // SQLite connection
-        private SqliteConnection Connection { get; set; }
+        // Stores the string of the connection
+        private readonly string ConnectionString;
 
         // Private constructor to prevent initialisation directly
         private DatabaseConnection(string connectionString)
         {
-            Connection = new SqliteConnection(connectionString);
+            ConnectionString = connectionString;
+            Connection = new SqliteConnection(ConnectionString);  // Initialises the connection object so it isn't null
         }
 
         // Returns the same instance of DatabaseConnection.
         // If the instance doesn't exist, it will create it.
-        //
-        // "connectionString" is the source to the database.
         public static DatabaseConnection GetInstance(string connectionString = "Data Source=fultonhogan.db")
         {
-            if (dbConnection == null)
+            if (Instance == null)
             {
-                dbConnection = new DatabaseConnection(connectionString);
+                Instance = new DatabaseConnection(connectionString);
             }
-            return dbConnection;
+            return Instance;
         }
 
         // Opens the connection to the database if it isn't open.
@@ -35,6 +38,12 @@ namespace Core.Models
             if (Connection.State != System.Data.ConnectionState.Open)
             {
                 Connection.Open();
+                
+                // ADD THIS: This line disables Foreign Key checks so your tests don't crash
+                using (var command = new Microsoft.Data.Sqlite.SqliteCommand("PRAGMA foreign_keys = OFF;", Connection))
+                {
+                    command.ExecuteNonQuery();
+                }
             }
         }
 

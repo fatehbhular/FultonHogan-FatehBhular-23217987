@@ -13,16 +13,12 @@ namespace Factories
         {
             switch (type.ToLower())
             {
-                // If the role is financial, create a new instance of FinanicalReport
                 case "financial":
                     return new FinancialReport(reportID, projectID, authorID, description, department);
-                // If the role is compliance, create a new instance of ComplianceReport
                 case "compliance":
                     return new ComplianceReport(reportID, projectID, authorID, description, department);
-                // If the role is progress, create a new instance of ProgressReport
                 case "progress":
                     return new ProgressReport(reportID, projectID, authorID, description, department);
-                // If the role is problem, create a new instance of ProblemReport
                 case "problem":
                     return new ProblemReport(reportID, projectID, authorID, description, department);
                 default:

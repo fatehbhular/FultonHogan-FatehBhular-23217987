@@ -1,5 +1,7 @@
 using Core.Interfaces;
 using Core.Models;
+using Task = Core.Models.Task;
+using Services;
 
 namespace Roles
 {
@@ -22,19 +24,24 @@ namespace Roles
         // Views the task list of the project this employee is assigned to
         public void ViewTaskList()
         {
-            // TODO: Create logic to view task list
+            Console.WriteLine($"Site Lead {Name} is reviewing the construction task list.");
         }
 
         // Sends instructions to the Site
         public void SendInstructions()
         {
-            // TODO: Create logic for sending instructions
+            Console.WriteLine($"Site Lead {Name} sent digital instructions to Site Foremen and Operators.");
         }
 
         // This method is called by ProjectNotify() when the project's status changes
         public void OnProjectUpdate(string projectID, string status)
         {
-            // TODO: Create logic for updating project status
+            Console.WriteLine($"[SITE NOTIFY] Site Lead {Name} aware that {projectID} is {status}. Adjusting site safety protocols.");
+        }
+
+        public void UpdateProgress(Task task, string status, TaskService taskService)
+        {
+            taskService.UpdateTaskStatus(task, status, this);
         }
     }
 }

@@ -8,19 +8,18 @@ namespace Repositories
 {
     public class DatabaseReportRepository : IReportRepository
     {
-        private DatabaseConnection dbConnection;
+        private DatabaseConnection DbConnection;
 
         public DatabaseReportRepository()
         {
-            dbConnection = DatabaseConnection.GetInstance();
-            dbConnection.Connect();
+            DbConnection = DatabaseConnection.GetInstance();
         }
 
         public void Save(Report report)
         {
-            // TODO: Write logic for saving a report to the database
-            dbConnection.Connect();
-            SqliteConnection connection = dbConnection.GetConnect();
+            // Ensure the connection is open
+            DbConnection.Connect();
+            SqliteConnection connection = DbConnection.GetConnect();
 
             string sql = @"INSERT OR REPLACE INTO REPORTS (ReportID, ProjectID, AuthorID, Description, Timestamp, Department, ReportType) VALUES (@ReportID, @ProjectID, @AuthorID, @Description, @Timestamp, @Department, @ReportType)";
 
@@ -49,8 +48,8 @@ namespace Repositories
         public Report GetByID(string reportID)
         {
             // TODO: Write logic for retrieving a report from the database
-            dbConnection.Connect();
-            SqliteConnection connection = dbConnection.GetConnect();
+            DbConnection.Connect();
+            SqliteConnection connection = DbConnection.GetConnect();
 
             string sql = @"SELECT * FROM Reports WHERE ReportID = @ReportID";
 
@@ -73,14 +72,8 @@ namespace Repositories
                         Report report = factory.CreateReport(reportType, id, projID, author, desc, dept);
 
                         if (report != null) {
-                            // Grab values from database rows
-                            report.ReportID = reader["ReportID"].ToString();
-                            report.ProjectID = reader["ProjectID"].ToString();
-                            report.AuthorID = reader["AuthorID"].ToString();
-                            report.Description = reader["Description"].ToString();
+                            // If report is created, return it with the timestamp
                             report.Timestamp = Convert.ToDateTime(reader["Timestamp"]);
-                            report.Department = reader["Department"].ToString();
-
                             return report;
                         }
                     }
