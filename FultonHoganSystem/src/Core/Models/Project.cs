@@ -49,7 +49,10 @@ namespace Core.Models
         // Notifies all observers when the status of this project changes - called automatically when status is changed
         public void Notify()
         {
-            // TODO: Notify all observers logic
+            foreach (IProjectObserver observer in Observers) {
+                // Calls OnProjectupdate() for each observer in the list
+                observer.OnProjectUpdate(ProjectID, Status);
+            }
         }
 
         // Calculates the current progress depending on completed tasks and task lists

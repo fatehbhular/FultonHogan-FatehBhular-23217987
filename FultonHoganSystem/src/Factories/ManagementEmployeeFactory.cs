@@ -20,11 +20,9 @@ namespace Factories
                     return new ProjectCoordinator();
                 case "sitelead":
                     return new SiteLead();
-                case "tasklistmanager":
-                    return new TaskListManager();
                 default:
-                    // If role doesn't match any of the above -> return null
-                    return null;
+                    // If role doesn't match any of the above -> return argument exception
+                    throw new ArgumentException($"Unknown management role: {role}");
             }
         }
     }

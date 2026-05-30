@@ -1,5 +1,7 @@
 using Core.Interfaces;
 using Core.Models;
+using System;
+using Services;
 
 namespace Roles
 {
@@ -20,15 +22,19 @@ namespace Roles
         }
 
         // Approves the budget for a project
-        public void ApproveProjectBudget()
+        public void ApproveProjectBudget(Project project)
         {
-            // TODO: Create logic for budget approval
+            if (project != null)
+            {
+                project.Status = "Budget Approved";
+                Console.WriteLine($"Financial Controller: {Name} approved budget for: {project.Title}");
+            }
         }
 
         // Views all finance reports in the system
-        public void ViewFinanceReports()
+        public void ViewFinanceReports(IReportRepository reportRepository)
         {
-            // TODO: Create logic for viewing finance reports
+            Console.WriteLine($"Financial Controller: {Name} is accessing the general ledger and financial statements.");
         }
     }
 }

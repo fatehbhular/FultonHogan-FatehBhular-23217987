@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Core.Models;
+using Services;
 
 namespace Roles
 {
@@ -22,7 +23,7 @@ namespace Roles
         // Accesses the timesheet for this labourer
         public void AccessTimeSheet()
         {
-            // TODO: Write logic for accessing a timesheet
+            Console.WriteLine($"Labourer: {Name} (ID: {EmployeeID}) is logging hours into the timesheet system.");
         }
     }
 }

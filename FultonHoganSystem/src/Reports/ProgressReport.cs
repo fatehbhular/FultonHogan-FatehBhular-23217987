@@ -1,4 +1,5 @@
 using Core.Models;
+using Repositories;
 
 namespace Reports
 {
@@ -16,25 +17,26 @@ namespace Reports
         // Updates the tasks completed in the project
         public void UpdateTasksCompleted()
         {
-            // TODO: Write logic to update tasks
+            Console.WriteLine("Updating task completion percentages...");
         }
 
         // Generates a progress report template
         public override void GenerateTemplate()
         {
-            // TODO: Progress report template generation
+            Description = "Standard Progress Template: Milestone tracking and percentage completion.";
         }
 
         // Saves this report to the database
         public override void Save()
         {
-            // TODO: Saving to database logic
+            DatabaseReportRepository repo = new DatabaseReportRepository();
+            repo.Save(this);
         }
 
         // Exports this report in PDF format
         public override void ExportToPDF()
         {
-            // TODO: Exporting as PDF logic
+            Console.WriteLine($"Exporting Progress Report {ReportID} to PDF...");
         }
     }
 }

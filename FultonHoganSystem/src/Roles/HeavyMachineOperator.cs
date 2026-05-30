@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Core.Models;
+using Services;
 
 namespace Roles
 {
@@ -22,19 +23,30 @@ namespace Roles
         // Views the instructions assigned to this operator
         public void ViewInstructions()
         {
-            // TODO: Write logic for viewing instructions
+            Console.WriteLine($"Operator {Name} is viewing safety and operation instructions for heavy machinery.");
         }
 
         // Issues a problem report
-        public void IssueProblem()
+        public void IssueProblem(ReportService reportService, string projectID, string issueDetails)
         {
-            // TODO: Write logic for issuing a problem report
+            Console.WriteLine($"Operator {Name} is reporting a site issue...");
+            Report problemReport = reportService.CreateReport("problem");
+
+            if (problemReport != null)
+            {
+                problemReport.ProjectID = projectID;
+                problemReport.AuthorID = this.EmployeeID;
+                problemReport.Description = issueDetails;
+                reportService.SaveReport(problemReport);
+                
+                Console.WriteLine($"Problem Report {problemReport.ReportID} issued for Project {projectID}.");
+            }
         }
 
         // Accesses the timesheet for this operator
         public void AccessTimeSheet()
         {
-            // TODO: Write logic for accessing a timesheet
+            Console.WriteLine($"Operator {Name} is updating their machine operation log and timesheet.");
         }
     }
 }

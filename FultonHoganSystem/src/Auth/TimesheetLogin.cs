@@ -1,4 +1,5 @@
 using Core.Models;
+using Microsoft.Data.Sqlite;
 
 namespace Auth
 {
@@ -20,7 +21,27 @@ namespace Auth
         public bool Login()
         {
             // TODO: Write logic to check credentials against match in database
-            return false;
+            var dbConnection = DatabaseConnection.GetInstance();
+            dbConnection.Connect();
+
+            // Retrieve the active Sqlite connection
+            SqliteConnection connection = dbConnection.GetConnect();
+
+            string sql = @"Select COUNT(1) FROM Employees WHERE Email = @Email AND Password = @Password";
+
+            using (var command = new SqliteCommand(sql, connection)) {
+                // This will bind the paramters to protect against SQL injection
+                command.Parameters.AddWithValue("@Email", this.Email);
+                command.Parameters.AddWithValue("@Password", this.Password);
+
+                try {
+                    long count = (long)command.ExecuteScalar();
+                    return count > 0; // If count is > 0, credentials match
+                } catch (SqliteException ex) {
+                    Console.WriteLine($"Database error during timesheet login: {ex.Message}");
+                    return false;
+                }
+            }
         }
     }
 }

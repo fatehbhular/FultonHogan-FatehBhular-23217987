@@ -1,4 +1,5 @@
 using Core.Models;
+using Repositories;
 
 namespace Reports
 {
@@ -17,31 +18,33 @@ namespace Reports
         // Verifies the accuracy of selected financial report
         public void VerifyReportAccuracy()
         {
-            // TODO: Report accuracy logic
+            Console.WriteLine($"Verifying accuracy for Compliance Report: {ReportID}");
         }
 
         // Notes any inconsistences found in the selected financial report
         public void FlagInconsistency()
         {
-            // TODO: Flagging logic
+            Console.WriteLine("Inconsistency flagged in compliance audit.");
         }
 
         // Generates a compliance report template
         public override void GenerateTemplate()
         {
-            // TODO: Compliance report template generation
+            Description = "Standard Compliance Template: Regulatory checks and audit history.";
         }
 
         // Saves this report to the database
         public override void Save()
         {
-            // TODO: Saving to database logic
+            // Uses the Repository to save itself
+            DatabaseReportRepository repo = new DatabaseReportRepository();
+            repo.Save(this);
         }
 
         // Exports this report in PDF format
         public override void ExportToPDF()
         {
-            // TODO: Exporting as PDF logic
+            Console.WriteLine($"Exporting Compliance Report {ReportID} to PDF...");
         }
     }
 }

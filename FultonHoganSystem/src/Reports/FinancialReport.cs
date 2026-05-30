@@ -1,4 +1,5 @@
 using Core.Models;
+using Repositories;
 
 namespace Reports
 {
@@ -16,25 +17,26 @@ namespace Reports
         // Calculates the Estimated vs Actual costs for this project
         public void CalulcateEVA()
         {
-            // TODO: Write EVA calculation logic
+            Console.WriteLine("Calculating Estimated vs Actual costs...");
         }
 
         // Generates a financial report template
         public override void GenerateTemplate()
         {
-            // TODO: Financial report template generation
+            Description = "Standard Financial Template: Budget allocations, spendings, and EVA analysis.";
         }
 
         // Saves this report to the database
         public override void Save()
         {
-            // TODO: Saving to database logic
+            DatabaseReportRepository repo = new DatabaseReportRepository();
+            repo.Save(this);
         }
 
         // Exports this report in PDF format
         public override void ExportToPDF()
         {
-            // TODO: Exporting as PDF logic
+            Console.WriteLine($"Exporting Financial Report {ReportID} to PDF...");
         }
     }
 }

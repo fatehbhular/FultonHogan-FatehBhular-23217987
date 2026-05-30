@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Core.Models;
+using Services;
 
 namespace Roles
 {
@@ -20,9 +21,18 @@ namespace Roles
         }
 
         // Creates a financial report for a project
-        public void CreateFinancialReport()
+        public void CreateFinancialReport(string projectID, ReportService reportService)
         {
-            // TODO: Create logic for creating a financial report
+            Console.WriteLine($"Accountant {Name} is generating a monthly financial statement for Project {projectID}...");
+            Report report = reportService.CreateReport("financial");
+            if (report != null)
+            {
+                report.ProjectID = projectID;
+                report.AuthorID = this.EmployeeID;
+                report.Department = this.Department;
+                reportService.SaveReport(report);
+                Console.WriteLine($"Financial Report {report.ReportID} successfully saved.");
+            }
         }
     }
 }

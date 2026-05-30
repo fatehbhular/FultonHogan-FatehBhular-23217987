@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Core.Models;
+using Services;
 
 namespace Roles
 {
@@ -20,15 +21,28 @@ namespace Roles
         }
 
         // Creates a compliance report
-        public void CreateComplianceReport()
+        public void CreateComplianceReport(ReportService reportService)
         {
-            // TODO: Write logic for creating a compliance report
+            Console.WriteLine($"Auditor: {Name} is initiating a compliance audit...");
+            Report newReport = reportService.CreateReport("compliance");
+            
+            if (newReport != null)
+            {
+                newReport.AuthorID = this.EmployeeID;
+                newReport.Department = this.Department;
+                reportService.SaveReport(newReport);
+                Console.WriteLine($"Compliance Report {newReport.ReportID} created and saved.");
+            }
         }
 
         // Accesses an existing financial report
-        public void AccessFinancialReport()
+        public void AccessFinancialReport(string reportID, ReportService reportService)
         {
-            // TODO: Write logic for accessing a financial report
+            Report report = reportService.ViewReport(reportID, this.EmployeeID);
+            if (report != null)
+            {
+                Console.WriteLine($"Auditor: {Name} is reviewing Financial Report: {reportID}");
+            }
         }
     }
 }

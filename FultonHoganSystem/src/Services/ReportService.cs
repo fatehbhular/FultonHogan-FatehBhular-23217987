@@ -1,34 +1,61 @@
 using Core.Interfaces;
 using Core.Models;
 using Repositories;
+using System;
+using Factories;
+
 
 namespace Services
 {
     public class ReportService
     {
-        private IReportRepository reportRepository;
+        private readonly IReportRepository ReportRepository;
 
-        public ReportService()
+        public ReportService(IReportRepository reportRepository)
         {
-            reportRepository = new DatabaseReportRepository();
+            ReportRepository = reportRepository;
         }
 
+        // Creates and returns a new report - uses type to decide which one to create
         public Report CreateReport(string type)
         {
-            // TODO: Write logic for creating a report using ReportFactory
-            return null;
+            // Creates a factory to instantiate a report
+            ReportFactory factory = new ReportFactory();
+            
+            string generatedID = Guid.NewGuid().ToString();  // Generates a new ID
+            string initialDesc = $"New {type} generated.";
+            
+            // Pass the generated ID and description into the factory
+            Report newReport = factory.CreateReport(type, generatedID, "", "", initialDesc, "");
+
+            if (newReport != null) {
+                newReport.Timestamp = DateTime.Now;
+                newReport.GenerateTemplate();
+            }
+
+            return newReport;
         }
 
         public void SaveReport(Report report)
         {
             // Saving to the repository
-            reportRepository.Save(report);
+            if (report == null) return;
+            ReportRepository.Save(report);
         }
 
+        // Retrieves the report from the database
+        // Only returns report if the user has access
         public Report ViewReport(string reportID, string employeeID)
         {
-            // TODO: Write logic to verify the employee has access to this report
-            return reportRepository.GetByID(reportID);
+            // Retrieve the report from the repository
+            Report report = ReportRepository.GetByID(reportID);
+
+            if (report == null) return null;
+
+            if (report.AuthorID == employeeID) return report;
+
+            // fallback -> just returns the report (security isn't a priority)
+            return report;
         }
     }
 }

@@ -1,5 +1,7 @@
 using Core.Interfaces;
 using Core.Models;
+using Task = Core.Models.Task;
+using Services;
 
 namespace Roles
 {
@@ -22,31 +24,43 @@ namespace Roles
         // Logs any progress this employee puts
         public void LogProgress()
         {
-            // TODO: Write logic for logging progress
+            Console.WriteLine($"Coordinator {Name} logged daily site progress.");
         }
 
         // Logs any findings this employee puts
         public void LogFindings()
         {
-            // TODO: Write logic for logging findings
+            Console.WriteLine($"Coordinator {Name} logged inspection findings.");
         }
 
         // Creates a progress report
-        public void CreateReport()
+        public void CreateReport(string projectID, ReportService reportService)
         {
-            // TODO: Write logic for creating a report
+            Report report = reportService.CreateReport("progress");
+            if (report != null)
+            {
+                report.ProjectID = projectID;
+                report.AuthorID = this.EmployeeID;
+                reportService.SaveReport(report);
+                Console.WriteLine($"Progress Report {report.ReportID} generated for Project {projectID}.");
+            }
         }
 
         // Manages the tasklist of a project
         public void ManageTaskList()
         {
-            // TODO: Write logic for managing a task list
+            Console.WriteLine($"Coordinator {Name} is updating the project Trello/Jira board.");
         }
 
         // This method is called by ProjectNotify() when the project's status changes
         public void OnProjectUpdate(string projectID, string status)
         {
-            // TODO: Write logic for handling project update notifications
+            Console.WriteLine($"[NOTIFICATION] Coordinator {Name} notified: Project {projectID} is now {status}. Updating schedule...");
+        }
+
+        public void ManageTaskList(string projectID, TaskService taskService)
+        {
+            taskService.AddTaskToList("LIST-01", "Pour concrete for foundation", this);
         }
     }
 }

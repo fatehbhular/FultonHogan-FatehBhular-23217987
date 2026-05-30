@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Core.Models;
+using Services;
 
 namespace Roles
 {
@@ -22,13 +23,21 @@ namespace Roles
         // Views the instructions assigned to this site
         public void ViewInstructions()
         {
-            // TODO: Write logic for viewing instructions
+            Console.WriteLine($"Foreman {Name} is reading the daily briefing for the site.");
         }
 
         // Issues a problem report for this site
-        public void IssueProblem()
+        public void IssueProblem(string projectID, string details, ReportService reportService)
         {
-            // TODO: Write logic for issuing a problem report
+            Report report = reportService.CreateReport("problem");
+            if (report != null)
+            {
+                report.ProjectID = projectID;
+                report.Description = details;
+                report.AuthorID = this.EmployeeID;
+                reportService.SaveReport(report);
+                Console.WriteLine($"Foreman {Name} logged a site issue: {details}");
+            }
         }
     }
 }
