@@ -18,11 +18,13 @@ namespace GUI.Views.RoleViews
         private DatabaseReportRepository _reportRepo;
         private ReportService _reportService;
 
+        // This method creates the view for the designer.
         public FinanceGroupView()
         {
             InitializeComponent();
         }
 
+        // This method creates the finance view for the logged in user.
         public FinanceGroupView(IEmployee user)
         {
             InitializeComponent();
@@ -40,13 +42,14 @@ namespace GUI.Views.RoleViews
             LoadReportData();
         }
 
+        // This method loads reports from the database.
         private void LoadReportData()
         {
             List<Report> reports = _reportRepo.GetAllReports();
             ReportListBox.ItemsSource = reports;
         }
 
-        // Logic for when a report is clicked in the list
+        // This method shows details for the selected report.
         private void OnReportSelected(object sender, SelectionChangedEventArgs e)
         {
             if (ReportListBox.SelectedItem is Report selected)
@@ -55,17 +58,20 @@ namespace GUI.Views.RoleViews
                 DetailID.Text = $"{selected.ReportType}: {selected.ReportID}";
                 DetailDesc.Text = selected.Description;
 
-                // Only show Verify button to Auditors
-                VerifyBtn.IsVisible = (_user is Auditor);
+                // Show the action button to auditors and financial controllers.
+                VerifyBtn.IsVisible = (_user is Auditor) || (_user is FinancialController);
+                VerifyBtn.Content = _user is FinancialController ? "Approve Report" : "Verify Accuracy";
             }
         }
 
+        // This method reloads the report list.
         private void OnViewArchiveClick(object sender, RoutedEventArgs e)
         {
             LoadReportData();
             StatusMessage.Text = "Ledger refreshed from database.";
         }
 
+        // This method creates a new financial report.
         private void OnCreateReportClick(object sender, RoutedEventArgs e)
         {
             if (_user is ProjectAccountant accountant)
@@ -76,6 +82,7 @@ namespace GUI.Views.RoleViews
             }
         }
 
+        // This method approves a demo project budget.
         private void OnApproveBudgetClick(object sender, RoutedEventArgs e)
         {
             if (_user is FinancialController controller)
@@ -87,7 +94,7 @@ namespace GUI.Views.RoleViews
             }
         }
 
-        // THIS IS THE METHOD THAT WAS MISSING AND CAUSING YOUR ERROR
+        // This method verifies or approves the selected report.
         private void OnVerifyClick(object sender, RoutedEventArgs e)
         {
             if (ReportListBox.SelectedItem is Report selected && _user is Auditor auditor)
@@ -95,8 +102,15 @@ namespace GUI.Views.RoleViews
                 auditor.VerifyReportAccuracy(selected);
                 StatusMessage.Text = $"Report {selected.ReportID} verified by Auditor.";
             }
+            else if (ReportListBox.SelectedItem is Report report && _user is FinancialController controller)
+            {
+                controller.ApproveReport(report, _reportRepo);
+                LoadReportData();
+                StatusMessage.Text = $"Report {report.ReportID} approved by Financial Controller.";
+            }
         }
 
+        // This method logs the user out and shows the login page.
         private void OnLogoutClick(object sender, RoutedEventArgs e)
         {
             var topLevel = TopLevel.GetTopLevel(this);

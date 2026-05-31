@@ -7,8 +7,7 @@ namespace Factories
     // Implements the "Simple Factory" method.
     public class ReportFactory
     {
-        // Creates a returns a report sub-class of the specified type inputted as the first parameter.
-        // Initialisation of "Financial Report", "Compliance Report", "Progress Report", and "Problem Report".
+        // This method creates the right report type.
         public Report CreateReport(string type, string reportID, string projectID, string authorID, string description, string department)
         {
             switch (type.ToLower())

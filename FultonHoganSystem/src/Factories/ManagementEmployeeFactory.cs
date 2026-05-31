@@ -10,6 +10,7 @@ namespace Factories
     {
         // This method creates and returns an employee from the management department depending on the role passed in the method.
         // Initialisation of "Project Manager", "Project Coordinator", "Site Lead", and "TaskListManager"
+        // This method creates a management employee for a role.
         public IEmployee CreateEmployee(string role)
         {
             switch (role.ToLower())

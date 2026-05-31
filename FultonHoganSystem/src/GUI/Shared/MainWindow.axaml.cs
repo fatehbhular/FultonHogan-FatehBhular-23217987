@@ -7,6 +7,7 @@ namespace GUI.Shared
 {
     public partial class MainWindow : Window
     {
+        // This method creates the main window and shows the login page.
         public MainWindow()
         {
             InitializeComponent();
@@ -14,11 +15,13 @@ namespace GUI.Shared
             NavigateToLogin();
         }
 
+        // This method shows the login page.
         public void NavigateToLogin()
         {
             ContentDisplay.Content = new LoginView();
         }
 
+        // This method sends the user to the right dashboard for their role.
         public void NavigateToDashboard(IEmployee user)
         {
             string role = user.GetRole();

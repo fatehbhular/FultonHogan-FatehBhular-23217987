@@ -9,18 +9,21 @@ namespace Roles
     public class ProjectAccountant : Employee
     {
         // This is a constructor that initialises a new ProjectAccountant object
+        // This method creates a project accountant.
         public ProjectAccountant(string name, string employeeID, string email, string department) : base(name, employeeID, email, "Project Accountant", department)
         {
 
         }
 
         // This is a DEFAULT constructor that lets the factory create employee object without other details e.g. name, department, etc.
+        // This method creates an empty project accountant.
         public ProjectAccountant() : base("", "", "", "Project Accountant", "")
         {
 
         }
 
         // Creates a financial report for a project
+        // This method creates and saves a financial report.
         public void CreateFinancialReport(string projectID, ReportService reportService)
         {
             Console.WriteLine($"Accountant {Name} is generating a monthly financial statement for Project {projectID}...");

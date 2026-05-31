@@ -15,6 +15,7 @@ namespace Core.Models
 
         // Constructor that initialises a new report.
         // This is only called by report sub-classes.
+        // This method creates a report.
         public Report(string reportID, string projectID, string authorID, string description, string department)
         {
             ReportID = reportID;
@@ -32,6 +33,7 @@ namespace Core.Models
         // Exports the report to PDF
         public abstract void ExportToPDF();
 
+        // This method shows the report as simple text.
         public override string ToString()
         {
             return $"{ReportType} report {ReportID} - {Description}";

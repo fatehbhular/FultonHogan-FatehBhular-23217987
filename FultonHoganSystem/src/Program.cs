@@ -5,6 +5,7 @@ using Core.Models;
 using Reports;
 using Repositories;
 using Roles;
+using Tests;
 using Task = Core.Models.Task;
 
 namespace FultonHogan
@@ -12,11 +13,18 @@ namespace FultonHogan
     class Program
     {
         [STAThread]
+        // This method starts the program or runs the self tests.
         public static void Main(string[] args)
         {
             // 1. Initialise tables
             var db = new DatabaseSetup();
             db.Initialise();
+
+            if (args.Contains("--self-test"))
+            {
+                WorkflowTests.RunAll();
+                return;
+            }
 
             var repo = new DatabaseEmployeeRepository();
             // Operations
@@ -37,6 +45,7 @@ namespace FultonHogan
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
 
+        // This method adds sample data so the GUI has useful things to show.
         private static void SeedDemoData()
         {
             var projectRepo = new DatabaseProjectRepository();
@@ -115,6 +124,7 @@ namespace FultonHogan
             ));
         }
 
+        // This method builds the Avalonia desktop app.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<GUI.App>()
                 .UsePlatformDetect()

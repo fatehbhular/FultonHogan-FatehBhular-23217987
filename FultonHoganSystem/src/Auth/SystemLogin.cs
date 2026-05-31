@@ -14,6 +14,7 @@ namespace Auth
         private DatabaseEmployeeRepository EmployeeRepository;
 
         // Initialises a new instance of SystemLogin
+        // This method stores the login details.
         public SystemLogin(string email, string password)
         {
             Email = email;
@@ -22,6 +23,7 @@ namespace Auth
         }
 
         // Authenticates the user credientials and returns the employee that logged in
+        // This method logs a user into the system.
         public IEmployee Login()
         {
             using (var reader = EmployeeRepository.GetUser(Email, Password))
@@ -56,6 +58,7 @@ namespace Auth
         }
 
         // Determines and returns the right factory instance based on the department
+        // This method picks the right employee factory.
         public IEmployeeFactory GetFactory(string department)
         {
             switch (department.ToLower())

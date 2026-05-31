@@ -11,6 +11,7 @@ namespace Core.Models
 
         // Constructor that initialises a new entry instance.
         // Called on initialisation of an entry.
+        // This method creates a timesheet entry.
         public Entry(string timesheetID, string ownerID, DateOnly dateWorked, TimeOnly timeWorked)
         {
             TimesheetID = timesheetID;
@@ -20,6 +21,7 @@ namespace Core.Models
         }
 
         // Returns this entry instance
+        // This method returns this entry.
         public Entry GetEntry()
         {
             return this;

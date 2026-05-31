@@ -11,11 +11,13 @@ namespace Repositories
         // Field that 
         private DatabaseConnection DbConnection;
 
+        // This method creates the project repository.
         public DatabaseProjectRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();
         }
 
+        // This method saves a project.
         public void Save(Project project)
         {
             // Ensure the connection is open
@@ -44,6 +46,7 @@ namespace Repositories
             }
         }
 
+        // This method gets a project by its ID.
         public Project GetByID(string projectID)
         {
             DbConnection.Connect();
@@ -78,6 +81,7 @@ namespace Repositories
             return null;
         }
 
+        // This method gets all projects.
         public List<Project> GetAllProjects()
         {
             List<Project> projects = new List<Project>();

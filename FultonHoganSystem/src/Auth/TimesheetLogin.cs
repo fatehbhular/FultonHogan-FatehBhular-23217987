@@ -11,6 +11,7 @@ namespace Auth
         public string Password { get; set; }
 
         // This is a constructor that initialises a new TimesheetLogin object using the employees credentials
+        // This method stores the timesheet login details.
         public TimesheetLogin(string email, string password)
         {
             Email = email;
@@ -18,6 +19,7 @@ namespace Auth
         }
 
         // Returns a boolean if the employee logged in successfully or not
+        // This method checks if the timesheet login is valid.
         public bool Login()
         {
             var dbConnection = DatabaseConnection.GetInstance();

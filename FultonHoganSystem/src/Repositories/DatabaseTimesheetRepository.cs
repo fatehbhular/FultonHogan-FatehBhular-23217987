@@ -11,12 +11,14 @@ namespace Repositories
     {
         private DatabaseConnection DbConnection;
 
+        // This method creates the timesheet repository.
         public DatabaseTimesheetRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();
         }
 
         // Retrieves entries for a specific employee
+        // This method gets all timesheet entries for an employee.
         public List<string> GetEntriesForEmployee(string employeeID)
         {
             var entries = new List<string>();
@@ -38,6 +40,7 @@ namespace Repositories
         }
 
         // Saves a new entry to the database
+        // This method saves a new timesheet entry.
         public void AddEntry(string ownerID, string date, string hours)
         {
             DbConnection.Connect();

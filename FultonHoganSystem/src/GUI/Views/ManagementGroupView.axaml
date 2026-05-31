@@ -45,6 +45,11 @@
 
                 <TextBlock Text="Tasks" FontWeight="Bold" FontSize="18"/>
                 <ListBox x:Name="TaskDetailsList" Height="150" Background="Transparent"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBox x:Name="NewTaskInput" Watermark="New task description" Width="360"/>
+                    <Button Content="Add Task" Click="OnAddTaskClick" Background="#27ae60" Foreground="White"/>
+                    <Button Content="Complete Task" Click="OnCompleteTaskClick" Background="#2980b9" Foreground="White"/>
+                </StackPanel>
 
                 <!-- THE MISSING ELEMENT: ActionLog -->
                 <Border Background="#fdfdfd" BorderBrush="#eee" BorderThickness="1" Padding="10">

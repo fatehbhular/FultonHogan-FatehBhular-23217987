@@ -10,12 +10,14 @@ namespace Services
     {
         private ITaskRepository TaskRepository;
 
+        // This method creates the task service.
         public TaskService(ITaskRepository taskRepository)
         {
             TaskRepository = taskRepository;
         }
 
         // Verifies if the employee has permission to manage tasks
+        // This method checks if the user can manage tasks.
         public bool VerifyEmployee(Employee employee)
         {
             string role = employee.GetRole();
@@ -23,6 +25,7 @@ namespace Services
         }
 
         // Creates a new list and saves it
+        // This method creates and saves a task list.
         public TaskList CreateTaskList(string projectID, string description, Employee user)
         {
             if (!VerifyEmployee(user)) {
@@ -37,6 +40,7 @@ namespace Services
         }
 
         // Adds a task to a list
+        // This method adds a task to a task list and saves it.
         public void AddTaskToList(string taskListID, string description, Employee user)
         {
             if (!VerifyEmployee(user)) return;
@@ -49,6 +53,7 @@ namespace Services
         }
 
         // Updates status (e.g. Site Lead marking something as Completed)
+        // This method changes a task status and saves it.
         public void UpdateTaskStatus(Task task, string newStatus, Employee user)
         {
             if (!VerifyEmployee(user)) return;

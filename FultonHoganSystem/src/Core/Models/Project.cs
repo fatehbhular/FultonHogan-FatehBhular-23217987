@@ -20,6 +20,7 @@ namespace Core.Models
 
         // Constructor that initialises a new project and saves it to the database.
         // ProjectTeam, TaskLists, and Observers are initialised as empty lists - later added dynamically.
+        // This method creates a project.
         public Project(string projectID, string title, DateOnly startDate, DateOnly deadline, int budgetLimit)
         {
             ProjectID = projectID;
@@ -35,18 +36,21 @@ namespace Core.Models
         }
 
         // Adds an observer to the list so they can receive status updates
+        // This method adds a person who should get project updates.
         public void Subscribe(IProjectObserver observer)
         {
             Observers.Add(observer);
         }
 
         // Removes an observer from the list, so they no longer receive status updates
+        // This method removes a person from project updates.
         public void Unsubscribe(IProjectObserver observer)
         {
             Observers.Remove(observer);
         }
 
         // Notifies all observers when the status of this project changes - called automatically when status is changed
+        // This method tells all observers about a project change.
         public void Notify()
         {
             foreach (IProjectObserver observer in Observers) {
@@ -56,12 +60,14 @@ namespace Core.Models
         }
 
         // Calculates the current progress depending on completed tasks and task lists
+        // This method calculates project progress.
         public void CalculateProgress()
         {
             // TODO: Create the progress calculation logic
         }
 
         // Updates the project status and notifies observers of the change
+        // This method changes the project status.
         public void UpdateStatus(string status)
         {
             Status = status;
@@ -69,6 +75,7 @@ namespace Core.Models
         }
 
         // Retrieves a report from the database by its ID
+        // This method gets a project report.
         public Report GetReport(string reportID)
         {
             // TODO: Logic for retrieving report from database

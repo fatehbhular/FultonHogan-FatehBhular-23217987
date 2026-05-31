@@ -14,11 +14,13 @@ namespace Repositories
         private DatabaseConnection DbConnection;
 
         // Gets the global instance instead of creating a new one
+        // This method creates the report repository.
         public DatabaseReportRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();
         }
 
+        // This method saves a report.
         public void Save(Report report)
         {
             // Ensure the connection is open
@@ -50,6 +52,7 @@ namespace Repositories
             }
         }
 
+        // This method gets a report by its ID.
         public Report GetByID(string reportID)
         {
             // TODO: Write logic for retrieving a report from the database
@@ -79,6 +82,8 @@ namespace Repositories
                         if (report != null) {
                             // If report is created, return it with the timestamp
                             report.Timestamp = Convert.ToDateTime(reader["Timestamp"]);
+                            report.ReportType = reportType;
+                            report.IsApproved = Convert.ToInt32(reader["IsApproved"]) == 1;
                             return report;
                         }
                     }
@@ -89,6 +94,7 @@ namespace Repositories
         }
 
         // Gets all the reports from the repository to display on the GUI
+        // This method gets all reports.
         public List<Report> GetAllReports()
         {
             // Initialises the list

@@ -9,18 +9,21 @@ namespace Roles
     public class ProjectManager : Employee, IProjectObserver
     {
         // This is a constructor that initialises a new ProjectManager object
+        // This method creates a project manager.
         public ProjectManager(string name, string employeeID, string email, string department) : base(name, employeeID, email, "Project Manager", department)
         {
 
         }
 
         // This is a DEFAULT constructor that lets the factory create employee object without other details e.g. name, department, etc.
+        // This method creates an empty project manager.
         public ProjectManager() : base("", "", "", "Project Manager", "")
         {
 
         }
 
         // Modifies a specific project using the ID passed in the method
+        // This method changes a project and saves it.
         public void ModifyProject(string projectID, IProjectRepository projectRepository)
         {
             Project project = projectRepository.GetByID(projectID);
@@ -32,12 +35,14 @@ namespace Roles
         }
 
         // Manages the employees this manager oversees.
+        // This method manages team members.
         public void ManageMembers()
         {
             Console.WriteLine($"PM {Name} is reviewing team performance and resource allocation.");
         }
 
         // Views the progress of a project
+        // This method shows project progress.
         public void ViewProgress(string projectID, IProjectRepository projectRepository)
         {
             Project project = projectRepository.GetByID(projectID);
@@ -48,6 +53,7 @@ namespace Roles
         }
 
         // This method is called by ProjectNotify() when the project's status changes
+        // This method receives project update messages.
         public void OnProjectUpdate(string projectID, string status)
         {
             Console.WriteLine($"[URGENT] PM {Name} received update: {projectID} is {status}. Checking milestones.");

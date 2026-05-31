@@ -38,6 +38,8 @@
                     <TextBlock Text="Log Hours:" FontWeight="Bold"/>
                     <TextBox x:Name="HoursInput" Watermark="Hours worked (e.g. 8)"/>
                     <Button Content="Save Hours" Click="OnSubmitHoursClick"/>
+                    <TextBlock Text="Saved Entries:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <ListBox x:Name="TimesheetEntriesList" Height="150"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
