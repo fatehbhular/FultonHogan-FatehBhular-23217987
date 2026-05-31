@@ -20,7 +20,6 @@ namespace Auth
         // Returns a boolean if the employee logged in successfully or not
         public bool Login()
         {
-            // TODO: Write logic to check credentials against match in database
             var dbConnection = DatabaseConnection.GetInstance();
             dbConnection.Connect();
 

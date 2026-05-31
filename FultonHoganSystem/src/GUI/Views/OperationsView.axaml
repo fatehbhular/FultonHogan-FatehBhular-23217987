@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GUI.Views.RoleViews.OperationsView">
+    <DockPanel>
+        <!-- Sidebar -->
+        <Border DockPanel.Dock="Left" Width="220" Background="#2c3e50" Padding="15">
+            <StackPanel Spacing="10">
+                <TextBlock Text="OPERATIONS" Foreground="White" FontWeight="Bold" Margin="0,0,0,20"/>
+                <Button x:Name="InstructionsBtn" Content="View Instructions" HorizontalAlignment="Stretch" Click="OnInstructionsClick"/>
+                <Button x:Name="ReportProblemBtn" Content="Report Problem" HorizontalAlignment="Stretch" Click="OnReportProblemClick"/>
+                <Button Content="My Timesheet" HorizontalAlignment="Stretch" Click="OnTimesheetClick"/>
+                <Separator Background="#34495e" Margin="0,20"/>
+                <Button Content="Logout" Click="OnLogoutClick" Background="#c0392b" Foreground="White" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Content Area -->
+        <Grid Background="#ecf0f1">
+            <StackPanel Margin="30" Spacing="20">
+                <TextBlock x:Name="WelcomeLabel" Text="Operations Dashboard" FontSize="26" FontWeight="Bold"/>
+                
+                <!-- THE MISSING ELEMENT -->
+                <TextBlock x:Name="StatusTitle" Text="Site Notice" FontSize="20" FontWeight="Bold" Foreground="#2c3e50"/>
+                
+                <Border Background="White" CornerRadius="8" Padding="20">
+                    <TextBlock x:Name="StatusContent" Text="Select an option to begin." TextWrapping="Wrap" FontSize="16"/>
+                </Border>
+
+                <!-- Problem Reporting Form -->
+                <StackPanel x:Name="ProblemForm" IsVisible="False" Spacing="10">
+                    <TextBlock Text="Describe the Issue:" FontWeight="Bold"/>
+                    <TextBox x:Name="ProblemInput" Height="100" AcceptsReturn="True" Watermark="Enter details here..."/>
+                    <Button Content="Submit Report" Background="#27ae60" Foreground="White" Click="OnSubmitProblemClick"/>
+                </StackPanel>
+
+                <!-- Timesheet Panel (Added for next step) -->
+                <StackPanel x:Name="TimesheetPanel" IsVisible="False" Spacing="10">
+                    <TextBlock Text="Log Hours:" FontWeight="Bold"/>
+                    <TextBox x:Name="HoursInput" Watermark="Hours worked (e.g. 8)"/>
+                    <Button Content="Save Hours" Click="OnSubmitHoursClick"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

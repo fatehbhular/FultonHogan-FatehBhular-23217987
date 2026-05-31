@@ -3,13 +3,18 @@ using Repositories;
 
 namespace Reports
 {
+    // Concrete class that represents a problem report for a project.
+    // Extends the Report abstract class and provides functionality regarding submitting a problem.
     public class ProblemReport : Report
     {
+        // Constructor that initialises a new problem report.
+        // Calls the base report constructor using base.
         public ProblemReport(string reportID, string projectID, string authorID, string description, string department) : base(reportID, projectID, authorID, description, department)
         {
 
         }
 
+        // Sends an alert to the project management team.
         public void SendAlert()
         {
             Console.WriteLine($"ALERT: Problem reported on Project {ProjectID}. Notifying stakeholders...");

@@ -6,12 +6,14 @@ using Microsoft.Data.Sqlite;
 
 namespace Auth
 {
+    // Handles the authentication logic for employees
     public class SystemLogin
     {
         public string Email { get; set; }
         public string Password { get; set; }
         private DatabaseEmployeeRepository EmployeeRepository;
 
+        // Initialises a new instance of SystemLogin
         public SystemLogin(string email, string password)
         {
             Email = email;
@@ -19,6 +21,7 @@ namespace Auth
             EmployeeRepository = new DatabaseEmployeeRepository();
         }
 
+        // Authenticates the user credientials and returns the employee that logged in
         public IEmployee Login()
         {
             using (var reader = EmployeeRepository.GetUser(Email, Password))
@@ -52,6 +55,7 @@ namespace Auth
             return null; // Login failed
         }
 
+        // Determines and returns the right factory instance based on the department
         public IEmployeeFactory GetFactory(string department)
         {
             switch (department.ToLower())

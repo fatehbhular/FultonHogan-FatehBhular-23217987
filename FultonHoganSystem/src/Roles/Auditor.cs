@@ -44,5 +44,11 @@ namespace Roles
                 Console.WriteLine($"Auditor: {Name} is reviewing Financial Report: {reportID}");
             }
         }
+
+        public void VerifyReportAccuracy(Report report)
+        {
+            // Logic: In a real system, this would perform a checksum or data validation
+            Console.WriteLine($"Auditor {Name} is verifying the data integrity of Report {report.ReportID}...");
+        }
     }
 }

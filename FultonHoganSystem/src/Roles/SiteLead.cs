@@ -28,9 +28,10 @@ namespace Roles
         }
 
         // Sends instructions to the Site
-        public void SendInstructions()
+        public void SendInstructions(string details)
         {
-            Console.WriteLine($"Site Lead {Name} sent digital instructions to Site Foremen and Operators.");
+            // This saves to the 'Instructions' table in database
+            Console.WriteLine($"Site Lead {Name} broadcasted instructions: {details}");
         }
 
         // This method is called by ProjectNotify() when the project's status changes

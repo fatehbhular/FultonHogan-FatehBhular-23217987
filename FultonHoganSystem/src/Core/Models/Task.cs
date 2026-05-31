@@ -30,5 +30,10 @@ namespace Core.Models
         {
             Status = status;
         }
+
+        public override string ToString()
+        {
+            return $"{Description} [{Status}]";
+        }
     }
 }

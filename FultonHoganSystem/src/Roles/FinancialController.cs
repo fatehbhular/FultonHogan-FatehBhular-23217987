@@ -22,13 +22,11 @@ namespace Roles
         }
 
         // Approves the budget for a project
-        public void ApproveProjectBudget(Project project)
+        public void ApproveProjectBudget(Project project, IProjectRepository repository)
         {
-            if (project != null)
-            {
-                project.Status = "Budget Approved";
-                Console.WriteLine($"Financial Controller: {Name} approved budget for: {project.Title}");
-            }
+            project.Status = "Budget Approved";
+            repository.Save(project);
+            Console.WriteLine($"Project {project.ProjectID} budget has been formally approved.");
         }
 
         // Views all finance reports in the system

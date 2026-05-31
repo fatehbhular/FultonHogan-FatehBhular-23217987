@@ -105,7 +105,27 @@ namespace Repositories
         public List<TaskList> GetProjectTaskLists(string projectID)
         {
             var lists = new List<TaskList>();
-            // Logic to select all lists for a project...
+            DbConnection.Connect();
+            var conn = DbConnection.GetConnect();
+            string sql = "SELECT * FROM TaskLists WHERE ProjectID = @ProjectID ORDER BY RowID ASC";
+
+            using (var cmd = new SqliteCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@ProjectID", projectID);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var list = new TaskList(
+                            reader["TaskListID"].ToString() ?? "",
+                            reader["ProjectID"].ToString() ?? "",
+                            reader["Description"].ToString() ?? ""
+                        );
+                        list.IncludedTasks = GetTasksByListID(list.TaskListID);
+                        lists.Add(list);
+                    }
+                }
+            }
             return lists;
         }
     }

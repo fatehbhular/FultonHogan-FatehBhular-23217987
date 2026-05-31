@@ -5,10 +5,13 @@ using Core.Interfaces;
 
 namespace Repositories
 {
-    public class DatabaseEmployeeRepository
+    // Implements IEmployeeRepository - database persistence for employees.
+    public class DatabaseEmployeeRepository : IEmployeeRepository
     {
+        // Holds the reference to the database connection helper instance
         private DatabaseConnection DbConnection;
 
+        // Retrieves the singleton instance of the Database connection class
         public DatabaseEmployeeRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();

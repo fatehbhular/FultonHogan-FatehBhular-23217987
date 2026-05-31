@@ -22,9 +22,10 @@ namespace Roles
         }
 
         // Logs any progress this employee puts
-        public void LogProgress()
+        public void LogProgress(string projectID, string details)
         {
-            Console.WriteLine($"Coordinator {Name} logged daily site progress.");
+            // In a real system, this appends to a project log table
+            Console.WriteLine($"Coordinator {Name} logged progress for {projectID}: {details}");
         }
 
         // Logs any findings this employee puts

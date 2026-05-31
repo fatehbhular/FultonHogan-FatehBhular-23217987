@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using GUI.Views;
 using Core.Interfaces;
+using GUI.Views.RoleViews;
 
 namespace GUI.Shared
 {
@@ -20,14 +21,29 @@ namespace GUI.Shared
 
         public void NavigateToDashboard(IEmployee user)
         {
-            // Create the new dashboard view
-            var dashboard = new DashboardView();
-            
-            // Pass the user info to the dashboard
-            dashboard.SetUser(user);
-            
-            // Swap the content
-            ContentDisplay.Content = dashboard;
+            string role = user.GetRole();
+
+            switch (role)
+            {
+                case "Project Manager":
+                case "Project Coordinator":
+                case "Site Lead":
+                    ContentDisplay.Content = new ManagementGroupView(user);
+                    break;
+                case "Financial Controller":
+                case "Project Accountant":
+                case "Auditor":
+                    ContentDisplay.Content = new FinanceGroupView(user);
+                    break;
+                case "Heavy Machine Operator":
+                case "Site Foreman":
+                case "General Labourer":
+                    ContentDisplay.Content = new OperationsView(user);
+                    break;
+                default:
+                    ContentDisplay.Content = new DashboardView();
+                    break;
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Database
             CreateTimesheetTable();
             CreateEntryTable();
             CreateInstructionsTable();
+            AddIsApprovedColumn();
         }
 
         // Creates the Employees table if it doesn't exist
@@ -147,6 +148,18 @@ namespace Database
         {
             SqliteCommand command = new SqliteCommand(sql, dbConnection.GetConnect());
             command.ExecuteNonQuery();
+        }
+
+        private void AddIsApprovedColumn()
+        {
+            // We wrap it in a try-catch because if the column already exists, it will throw an error
+            try {
+                string sql = "ALTER TABLE Reports ADD COLUMN IsApproved INTEGER DEFAULT 0";
+                ExecuteSQL(sql);
+                Console.WriteLine("Database updated: IsApproved column added to Reports.");
+            } catch {
+                // If it fails, the column likely already exists, which is fine.
+            }
         }
     }
 }

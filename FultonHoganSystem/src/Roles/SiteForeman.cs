@@ -27,16 +27,15 @@ namespace Roles
         }
 
         // Issues a problem report for this site
-        public void IssueProblem(string projectID, string details, ReportService reportService)
+        public void IssueProblem(string projectID, string issueDetails, ReportService reportService)
         {
-            Report report = reportService.CreateReport("problem");
-            if (report != null)
+            Report problemReport = reportService.CreateReport("problem");
+            if (problemReport != null)
             {
-                report.ProjectID = projectID;
-                report.Description = details;
-                report.AuthorID = this.EmployeeID;
-                reportService.SaveReport(report);
-                Console.WriteLine($"Foreman {Name} logged a site issue: {details}");
+                problemReport.ProjectID = projectID;
+                problemReport.AuthorID = this.EmployeeID;
+                problemReport.Description = issueDetails;
+                reportService.SaveReport(problemReport);
             }
         }
     }
