@@ -9,34 +9,37 @@ namespace Roles
     public class SiteForeman : Employee
     {
         // This is a constructor that initialises a new SiteForeman object
+        // This method creates a site foreman.
         public SiteForeman(string name, string employeeID, string email, string department) : base(name, employeeID, email, "Site Foreman", department)
         {
             
         }
 
         // This is a DEFAULT constructor that lets the factory create employee object without other details e.g. name, department, etc.
+        // This method creates an empty site foreman.
         public SiteForeman() : base("", "", "", "Site Foreman", "")
         {
 
         }
 
         // Views the instructions assigned to this site
+        // This method shows site instructions.
         public void ViewInstructions()
         {
             Console.WriteLine($"Foreman {Name} is reading the daily briefing for the site.");
         }
 
         // Issues a problem report for this site
-        public void IssueProblem(string projectID, string details, ReportService reportService)
+        // This method creates and saves a problem report.
+        public void IssueProblem(string projectID, string issueDetails, ReportService reportService)
         {
-            Report report = reportService.CreateReport("problem");
-            if (report != null)
+            Report problemReport = reportService.CreateReport("problem");
+            if (problemReport != null)
             {
-                report.ProjectID = projectID;
-                report.Description = details;
-                report.AuthorID = this.EmployeeID;
-                reportService.SaveReport(report);
-                Console.WriteLine($"Foreman {Name} logged a site issue: {details}");
+                problemReport.ProjectID = projectID;
+                problemReport.AuthorID = this.EmployeeID;
+                problemReport.Description = issueDetails;
+                reportService.SaveReport(problemReport);
             }
         }
     }

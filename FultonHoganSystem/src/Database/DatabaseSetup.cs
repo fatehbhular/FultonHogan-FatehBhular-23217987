@@ -11,6 +11,7 @@ namespace Database
         private DatabaseConnection dbConnection;
 
         // Initialises the DatabaseSetup by retriving the singleton DatabaseConnection instance
+        // This method creates the database setup helper.
         public DatabaseSetup() 
         {
             dbConnection = DatabaseConnection.GetInstance();
@@ -18,6 +19,7 @@ namespace Database
         }
 
         // Runs all the SQL commands to create the tables
+        // This method creates all needed database tables.
         public void Initialise() 
         {
             CreateEmployeeTable();
@@ -28,9 +30,11 @@ namespace Database
             CreateTimesheetTable();
             CreateEntryTable();
             CreateInstructionsTable();
+            AddIsApprovedColumn();
         }
 
         // Creates the Employees table if it doesn't exist
+        // This method creates the employee table.
         private void CreateEmployeeTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Employees (
@@ -45,6 +49,7 @@ namespace Database
         }
 
         // Creates the Projects table if it doesn't exist
+        // This method creates the project table.
         private void CreateProjectTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Projects (
@@ -60,6 +65,7 @@ namespace Database
         }
 
         // Creates the TaskLists table if it doesn't exist
+        // This method creates the task list table.
         private void CreateTaskListTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS TaskLists (
@@ -72,6 +78,7 @@ namespace Database
         }
 
         // Creates the Tasks table if it doesn't exist
+        // This method creates the task table.
         private void CreateTaskTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Tasks (
@@ -85,6 +92,7 @@ namespace Database
         }
 
         // Creates the Reports table if it doesn't exist
+        // This method creates the report table.
         private void CreateReportTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Reports (
@@ -102,6 +110,7 @@ namespace Database
         }
 
         // Creates the Timesheets table if it doesn't exist
+        // This method creates the timesheet table.
         private void CreateTimesheetTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Timesheets (
@@ -114,6 +123,7 @@ namespace Database
         }
 
         // Creates the Entries table if it doesn't exist
+        // This method creates the entry table.
         private void CreateEntryTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Entries (
@@ -129,6 +139,7 @@ namespace Database
         }
 
         // Creates the Instructions table if it doesn't exist
+        // This method creates the instructions table.
         private void CreateInstructionsTable() 
         {
             string sql = @"CREATE TABLE IF NOT EXISTS Instructions (
@@ -143,10 +154,24 @@ namespace Database
 
         // Executes a SQL command to the database
         // This is used by all CreateTable methods
+        // This method runs a SQL command.
         private void ExecuteSQL(string sql) 
         {
             SqliteCommand command = new SqliteCommand(sql, dbConnection.GetConnect());
             command.ExecuteNonQuery();
+        }
+
+        // This method adds the report approval field if needed.
+        private void AddIsApprovedColumn()
+        {
+            // We wrap it in a try-catch because if the column already exists, it will throw an error
+            try {
+                string sql = "ALTER TABLE Reports ADD COLUMN IsApproved INTEGER DEFAULT 0";
+                ExecuteSQL(sql);
+                Console.WriteLine("Database updated: IsApproved column added to Reports.");
+            } catch {
+                // If it fails, the column likely already exists, which is fine.
+            }
         }
     }
 }

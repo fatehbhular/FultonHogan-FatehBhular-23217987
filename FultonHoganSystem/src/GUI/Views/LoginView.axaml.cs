@@ -8,8 +8,10 @@ namespace GUI.Views
 {
     public partial class LoginView : UserControl
     {
+        // This method creates the login view.
         public LoginView() => InitializeComponent();
 
+        // This method checks the login details and opens the right dashboard.
         private void OnLoginClick(object sender, RoutedEventArgs e)
         {
             string email = EmailBox.Text ?? "";

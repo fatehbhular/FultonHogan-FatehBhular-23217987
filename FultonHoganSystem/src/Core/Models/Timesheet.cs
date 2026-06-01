@@ -12,6 +12,7 @@ namespace Core.Models
 
         // Constructor that initialises a new timesheet.
         // A new instance is created when there is no available entry in the database.
+        // This method creates a timesheet.
         public Timesheet(string timesheetID, string ownerID, DateOnly payPeriod)
         {
             TimesheetID = timesheetID;
@@ -21,18 +22,21 @@ namespace Core.Models
         }
 
         // Adds a new entry into this timesheet
+        // This method adds an entry to the timesheet.
         public void AddEntry(Entry entry)
         {
             Entries.Add(entry);
         }
 
         // Removes an existing entry from this timesheet
+        // This method removes an entry from the timesheet.
         public void RemoveEntry(Entry entry)
         {
             Entries.Remove(entry);
         }
 
         // Calculates and returns a summary of pay for this timesheet.
+        // This method returns a simple pay summary.
         public string GetPaySummary(string timesheetID)
         {
             // TODO: Do the logic of the calculation.

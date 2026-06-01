@@ -11,12 +11,14 @@ namespace Services
     {
         private readonly IReportRepository ReportRepository;
 
+        // This method creates the report service.
         public ReportService(IReportRepository reportRepository)
         {
             ReportRepository = reportRepository;
         }
 
         // Creates and returns a new report - uses type to decide which one to create
+        // This method creates a report of the chosen type.
         public Report CreateReport(string type)
         {
             // Creates a factory to instantiate a report
@@ -36,6 +38,7 @@ namespace Services
             return newReport;
         }
 
+        // This method saves a report.
         public void SaveReport(Report report)
         {
             // Saving to the repository
@@ -45,6 +48,7 @@ namespace Services
 
         // Retrieves the report from the database
         // Only returns report if the user has access
+        // This method gets a report for a user.
         public Report ViewReport(string reportID, string employeeID)
         {
             // Retrieve the report from the repository

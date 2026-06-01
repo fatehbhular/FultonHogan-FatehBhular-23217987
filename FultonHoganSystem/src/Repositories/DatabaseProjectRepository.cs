@@ -5,15 +5,19 @@ using Core.Models;
 
 namespace Repositories
 {
+    // Implementation of IProjectRepo
     public class DatabaseProjectRepository : IProjectRepository
     {
+        // Field that 
         private DatabaseConnection DbConnection;
 
+        // This method creates the project repository.
         public DatabaseProjectRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();
         }
 
+        // This method saves a project.
         public void Save(Project project)
         {
             // Ensure the connection is open
@@ -42,6 +46,7 @@ namespace Repositories
             }
         }
 
+        // This method gets a project by its ID.
         public Project GetByID(string projectID)
         {
             DbConnection.Connect();
@@ -74,6 +79,34 @@ namespace Repositories
             }
 
             return null;
+        }
+
+        // This method gets all projects.
+        public List<Project> GetAllProjects()
+        {
+            List<Project> projects = new List<Project>();
+            DbConnection.Connect();
+            var conn = DbConnection.GetConnect();
+            string sql = "SELECT * FROM Projects";
+
+            using (var cmd = new SqliteCommand(sql, conn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var p = new Project(
+                        reader["ProjectID"].ToString() ?? "",
+                        reader["Title"].ToString() ?? "",
+                        DateOnly.Parse(reader["StartDate"].ToString() ?? ""),
+                        DateOnly.Parse(reader["Deadline"].ToString() ?? ""),
+                        (int)Convert.ToDouble(reader["BudgetLimit"])
+                    );
+                    p.Status = reader["Status"].ToString() ?? "";
+                    p.CurrentSpendings = (int)Convert.ToDouble(reader["CurrentSpendings"]);
+                    projects.Add(p);
+                }
+            }
+            return projects;
         }
     }
 }

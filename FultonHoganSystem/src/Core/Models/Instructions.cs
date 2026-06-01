@@ -11,6 +11,7 @@ namespace Core.Models
 
         // Constructor that initialises a new set of instructions.
         // TodoList is initialised as an empty list of strings which are later filled with written instructions.
+        // This method creates instructions for a site.
         public Instructions(string senderID, string siteID)
         {
             SenderID = senderID;
@@ -20,6 +21,7 @@ namespace Core.Models
         }
 
         // Returns the list of instructions
+        // This method returns the instruction list.
         public List<string> GetInstructions()
         {
             return ToDoList;

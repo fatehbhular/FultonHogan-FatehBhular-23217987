@@ -8,9 +8,10 @@ namespace GUI.Views
 {
     public partial class DashboardView : UserControl
     {
+        // This method creates the dashboard view.
         public DashboardView() => InitializeComponent();
 
-        // Method to update the text with the actual user's name
+        // This method shows the logged in user's name.
         public void SetUser(IEmployee user)
         {
             if (user is Employee emp)
@@ -19,6 +20,7 @@ namespace GUI.Views
             }
         }
 
+        // This method logs the user out and shows the login page.
         private void OnLogoutClick(object sender, RoutedEventArgs e)
         {
             // Go back to login

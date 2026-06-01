@@ -10,6 +10,7 @@ namespace Factories
     {
         // This method creates and returns an employee from the financial department depending on the role passed in the method.
         // Initialisation of "Financial Controller", "Project Accountant", and "Auditor".
+        // This method creates a finance employee for a role.
         public IEmployee CreateEmployee(string role)
         {
             switch (role.ToLower())

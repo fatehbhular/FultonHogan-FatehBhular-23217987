@@ -14,6 +14,7 @@ namespace Core.Models
 
         // Constructor that initialises a new employee.
         // This is only called by employee sub-classes e.g. Finance Controller, Site Foreman, etc.
+        // This method creates an employee.
         public Employee(string name, string employeeID, string email, string role, string department)
         {
             Name = name;
@@ -24,12 +25,14 @@ namespace Core.Models
         }
 
         // Returns the role of the employee.
+        // This method returns the employee role.
         public string GetRole()
         {
             return Role;
         }
 
         // Attempts to log the employee in matching the username and password, with a match in the database.
+        // This method checks login details.
         public bool Login(string email, string password)
         {
             // TODO: Authentication logic which is in LoginService
@@ -37,6 +40,7 @@ namespace Core.Models
         }
 
         // Logs the employee out of the system.
+        // This method logs the employee out.
         public bool Logout()
         {
             return true;

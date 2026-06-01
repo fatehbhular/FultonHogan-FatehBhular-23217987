@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GUI.Views.RoleViews.FinanceGroupView">
+    <DockPanel>
+        <!-- Navigation Sidebar -->
+        <Border DockPanel.Dock="Left" Width="220" Background="#2c3e50" Padding="15">
+            <StackPanel Spacing="10">
+                <TextBlock Text="FINANCE PORTAL" Foreground="White" FontWeight="Bold" Margin="0,0,0,20"/>
+                
+                <Button x:Name="ApproveBudgetBtn" Content="Approve Project Budget" HorizontalAlignment="Stretch" Click="OnApproveBudgetClick"/>
+                <Button x:Name="CreateReportBtn" Content="Create Financial Report" HorizontalAlignment="Stretch" Click="OnCreateReportClick"/>
+                <Button Content="View Financial Archive" HorizontalAlignment="Stretch" Click="OnViewArchiveClick"/>
+                
+                <Separator Background="#34495e" Margin="0,20"/>
+                <Button Content="Logout" Click="OnLogoutClick" Background="#c0392b" Foreground="White" HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Main Display Area -->
+        <Grid Background="#ecf0f1" ColumnDefinitions="*, 350">
+            <StackPanel Grid.Column="0" Margin="30" Spacing="20">
+                <TextBlock x:Name="WelcomeLabel" Text="Finance Dashboard" FontSize="26" FontWeight="Bold" Foreground="#2c3e50"/>
+                
+                <Border Background="White" CornerRadius="8" Padding="15" BoxShadow="0 4 10 0 #20000000">
+                    <StackPanel Spacing="10">
+                        <TextBlock x:Name="ViewTitle" Text="Financial Ledger" FontWeight="Bold"/>
+                        <!-- Note the SelectionChanged event added here -->
+                        <ListBox x:Name="ReportListBox" Height="350" SelectionChanged="OnReportSelected">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="10" BorderBrush="#EEE" BorderThickness="0,0,0,1">
+                                        <DockPanel>
+                                            <Border DockPanel.Dock="Right" 
+                                                    IsVisible="{Binding IsApproved}" 
+                                                    Background="#27ae60" 
+                                                    CornerRadius="4" 
+                                                    Padding="8,2">
+                                                <TextBlock Text="APPROVED" Foreground="White" FontSize="10" FontWeight="Bold"/>
+                                            </Border>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding ReportType}" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding ReportID}" FontSize="10" Foreground="Gray"/>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+                <TextBlock x:Name="StatusMessage" Foreground="#27ae60" FontWeight="Bold"/>
+            </StackPanel>
+
+            <!-- Details Panel (Right Side) -->
+            <Border x:Name="DetailPanel" Grid.Column="1" IsVisible="False" Background="White" Margin="0,30,30,30" Padding="20" CornerRadius="8">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Report Details" FontWeight="Bold" FontSize="14" Foreground="Gray"/>
+                    <Separator/>
+                    <TextBlock x:Name="DetailID" FontSize="18" FontWeight="Bold" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="DetailDesc" TextWrapping="Wrap" FontSize="14" Height="200"/>
+                    
+                    <!-- This Button was causing your error because the method was missing in C# -->
+                    <Button x:Name="VerifyBtn" Content="Verify Accuracy" 
+                            Click="OnVerifyClick" 
+                            HorizontalAlignment="Stretch" 
+                            Background="#2980b9" Foreground="White"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

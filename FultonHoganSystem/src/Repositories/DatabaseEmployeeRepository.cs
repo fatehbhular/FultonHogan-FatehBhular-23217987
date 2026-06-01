@@ -5,16 +5,21 @@ using Core.Interfaces;
 
 namespace Repositories
 {
-    public class DatabaseEmployeeRepository
+    // Implements IEmployeeRepository - database persistence for employees.
+    public class DatabaseEmployeeRepository : IEmployeeRepository
     {
+        // Holds the reference to the database connection helper instance
         private DatabaseConnection DbConnection;
 
+        // Retrieves the singleton instance of the Database connection class
+        // This method creates the employee repository.
         public DatabaseEmployeeRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();
         }
 
         // Saves an employee and their password to the database
+        // This method saves an employee and password.
         public void Save(Employee employee, string password)
         {
             DbConnection.Connect();
@@ -36,6 +41,7 @@ namespace Repositories
         }
 
         // Retrieves a single row from the database based on credentials
+        // This method finds a user by email and password.
         public SqliteDataReader GetUser(string email, string password)
         {
             DbConnection.Connect();

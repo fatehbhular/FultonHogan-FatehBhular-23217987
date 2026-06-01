@@ -1,7 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="GUI.Shared.MainWindow"
-        Title="Fulton Hogan Management System" Width="800" Height="550"
+        Title="Fulton Hogan Management System" Width="1100" Height="720"
+        MinWidth="900" MinHeight="620"
         WindowStartupLocation="CenterScreen">
     
     <!-- This is the container where we swap views -->

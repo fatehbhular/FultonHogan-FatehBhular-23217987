@@ -11,11 +11,13 @@ namespace Repositories
     {
         private DatabaseConnection DbConnection;
 
+        // This method creates the task repository.
         public DatabaseTaskRepository()
         {
             DbConnection = DatabaseConnection.GetInstance();
         }
 
+        // This method saves a task list and its tasks.
         public void SaveTaskList(TaskList taskList)
         {
             DbConnection.Connect();
@@ -37,6 +39,7 @@ namespace Repositories
             }
         }
 
+        // This method saves one task.
         public void SaveTask(Task task)
         {
             DbConnection.Connect();
@@ -53,6 +56,7 @@ namespace Repositories
             }
         }
 
+        // This method gets a task list by its ID.
         public TaskList GetTaskListByID(string taskListID)
         {
             DbConnection.Connect();
@@ -75,6 +79,7 @@ namespace Repositories
             return null;
         }
 
+        // This method gets all tasks in a task list.
         public List<Task> GetTasksByListID(string taskListID)
         {
             var tasks = new List<Task>();
@@ -102,10 +107,31 @@ namespace Repositories
             return tasks;
         }
 
+        // This method gets all task lists for a project.
         public List<TaskList> GetProjectTaskLists(string projectID)
         {
             var lists = new List<TaskList>();
-            // Logic to select all lists for a project...
+            DbConnection.Connect();
+            var conn = DbConnection.GetConnect();
+            string sql = "SELECT * FROM TaskLists WHERE ProjectID = @ProjectID ORDER BY RowID ASC";
+
+            using (var cmd = new SqliteCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@ProjectID", projectID);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var list = new TaskList(
+                            reader["TaskListID"].ToString() ?? "",
+                            reader["ProjectID"].ToString() ?? "",
+                            reader["Description"].ToString() ?? ""
+                        );
+                        list.IncludedTasks = GetTasksByListID(list.TaskListID);
+                        lists.Add(list);
+                    }
+                }
+            }
             return lists;
         }
     }

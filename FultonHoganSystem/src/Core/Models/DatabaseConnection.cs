@@ -15,6 +15,7 @@ namespace Core.Models
         private readonly string ConnectionString;
 
         // Private constructor to prevent initialisation directly
+        // This method creates the database connection.
         private DatabaseConnection(string connectionString)
         {
             ConnectionString = connectionString;
@@ -23,6 +24,7 @@ namespace Core.Models
 
         // Returns the same instance of DatabaseConnection.
         // If the instance doesn't exist, it will create it.
+        // This method returns the shared database connection.
         public static DatabaseConnection GetInstance(string connectionString = "Data Source=fultonhogan.db")
         {
             if (Instance == null)
@@ -33,6 +35,7 @@ namespace Core.Models
         }
 
         // Opens the connection to the database if it isn't open.
+        // This method opens the database connection.
         public void Connect()
         {
             if (Connection.State != System.Data.ConnectionState.Open)
@@ -48,6 +51,7 @@ namespace Core.Models
         }
 
         // Returns the SQLite connection instance so that we can use it in queries.
+        // This method returns the open database connection.
         public SqliteConnection GetConnect()
         {
             return Connection;

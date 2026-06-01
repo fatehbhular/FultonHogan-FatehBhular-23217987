@@ -10,9 +10,12 @@ namespace Core.Models
         public string Description { get; set; }
         public DateTime Timestamp { get; set; }
         public string Department { get; set; }
+        public string ReportType { get; set; } 
+        public bool IsApproved { get; set; }
 
         // Constructor that initialises a new report.
         // This is only called by report sub-classes.
+        // This method creates a report.
         public Report(string reportID, string projectID, string authorID, string description, string department)
         {
             ReportID = reportID;
@@ -29,5 +32,11 @@ namespace Core.Models
         public abstract void Save();
         // Exports the report to PDF
         public abstract void ExportToPDF();
+
+        // This method shows the report as simple text.
+        public override string ToString()
+        {
+            return $"{ReportType} report {ReportID} - {Description}";
+        }
     }
 }

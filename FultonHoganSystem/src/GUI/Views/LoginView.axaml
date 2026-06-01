@@ -2,8 +2,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="GUI.Views.LoginView">
     
-    <Border Background="#2c3e50" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300" Spacing="15">
+    <Border Background="#243342" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid ColumnDefinitions="*,420" MaxWidth="980" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="32">
+            <StackPanel Grid.Column="0" Spacing="18" Margin="0,0,40,0" VerticalAlignment="Center">
+                <TextBlock Text="FULTON HOGAN" FontSize="42" Foreground="White" 
+                           FontWeight="Bold"/>
+                <TextBlock Text="Role-based project, finance, operations, reporting, and timesheet management." 
+                           Foreground="#d6e2ea" FontSize="18" TextWrapping="Wrap" MaxWidth="440"/>
+                <Border Background="#1b2835" Padding="16" CornerRadius="8">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Demo accounts" Foreground="White" FontWeight="Bold"/>
+                        <TextBlock Text="Management: alice@fh.com / 123" Foreground="#d6e2ea"/>
+                        <TextBlock Text="Finance controller: john@fh.com / 123" Foreground="#d6e2ea"/>
+                        <TextBlock Text="Accountant: priya@fh.com / 123" Foreground="#d6e2ea"/>
+                        <TextBlock Text="Auditor: amelia@fh.com / 123" Foreground="#d6e2ea"/>
+                        <TextBlock Text="Operations: dave@fh.com / 123" Foreground="#d6e2ea"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Spacing="15">
             
             <TextBlock Text="FULTON HOGAN" FontSize="28" Foreground="White" 
                        FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
@@ -26,6 +44,7 @@
                 </StackPanel>
             </Border>
             
-        </StackPanel>
+            </StackPanel>
+        </Grid>
     </Border>
 </UserControl>
